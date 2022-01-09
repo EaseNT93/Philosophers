@@ -6,7 +6,7 @@
 /*   By: dpants <dpants@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:01:07 by dpants            #+#    #+#             */
-/*   Updated: 2021/12/13 19:01:07 by dpants           ###   ########.fr       */
+/*   Updated: 2022/01/09 14:32:36 by dpants           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (str[i++]);
+	while (str[i++])
+		;
 	return (i);
 }
 

@@ -2,7 +2,10 @@ NAME = philo
 
 NAME_B = philo_bonus
 
-SRC = src/
+SRC = src/life_utils.c\
+	src/main_utils.c\
+	src/philo.c\
+	src/philo_life.c
 
 SRC_B = src/
 

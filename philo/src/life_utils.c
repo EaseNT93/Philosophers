@@ -6,7 +6,7 @@
 /*   By: dpants <dpants@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:14:47 by dpants            #+#    #+#             */
-/*   Updated: 2021/12/15 17:14:47 by dpants           ###   ########.fr       */
+/*   Updated: 2022/01/09 14:32:20 by dpants           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ long int	get_time(void)
 
 void	print_msg(t_cfg *cfg, int phil_nb, char *msg)
 {
-	pthread_mutex_lock(&(cfg->msg));
+	pthread_mutex_lock(&(cfg->msg_trd));
 	if (!cfg->die_f)
 		printf("%li %i %s\n", get_time() - cfg->start_t, phil_nb, msg);
-	pthread_mutex_unlock(&(cfg->msg));
+	pthread_mutex_unlock(&(cfg->msg_trd));
 }
 
 int	philo_w8(t_cfg *cfg, long int start_time, long int w8_time)

@@ -6,7 +6,7 @@
 /*   By: dpants <dpants@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:25:07 by dpants            #+#    #+#             */
-/*   Updated: 2021/11/16 15:25:07 by dpants           ###   ########.fr       */
+/*   Updated: 2022/01/09 14:31:51 by dpants           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	init_mutex(t_cfg *cfg)
 {
 	int	i;
 
-	cfg->fork = (mutex_t *)malloc(sizeof(*(cfg->fork)) * cfg->philo_count);
-	if (!cfg->fork)
+	cfg->fork_trd = malloc(sizeof(*(cfg->fork_trd)) * cfg->philo_count);
+	if (!cfg->fork_trd)
 		return (1);
 	i = -1;
 	while (cfg->philo_count > i++)
@@ -73,14 +73,14 @@ int	init_config(t_cfg *cfg, int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_cfg	cfg;
-	
-	if (argc != 5 || argc != 6)
+
+	if (argc != 5 && argc != 6)
 		return (error_msg("Wrong number of arguments"));
 	if (init_config(&cfg, argc, argv))
 		return (error_msg("Config initialisation"));
 	if (start_life_cycle(&cfg))
-		return (error_msg("Thread create"))
+		return (error_msg("Thread create"));
 	free(cfg.philo);
-	free(cfg.fork);
+	free(cfg.fork_trd);
 	return (0);
 }
