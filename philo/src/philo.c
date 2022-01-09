@@ -6,7 +6,7 @@
 /*   By: dpants <dpants@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:25:07 by dpants            #+#    #+#             */
-/*   Updated: 2022/01/09 14:31:51 by dpants           ###   ########.fr       */
+/*   Updated: 2022/01/09 16:37:40 by dpants           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	init_philo(t_cfg *cfg)
 {
 	int	i;
 
-	cfg->philo = (t_philo *)malloc(sizeof(*(cfg->philo)) * cfg->philo_count);
+	cfg->philo = (t_philo *)malloc(sizeof(t_philo) * cfg->philo_count);
 	if (!cfg->philo)
 		return (1);
 	i = 0;
@@ -46,7 +46,7 @@ int	init_mutex(t_cfg *cfg)
 			return (1);
 	if (pthread_mutex_init(&(cfg->msg_trd), NULL))
 		return (1);
-	if (pthread_mutex_init(&(cfg->eat_trd), NULL))
+	if (pthread_mutex_init(&(cfg->eat_trd), NULL)) // no need (?)
 		return (1);
 	return (0);
 }
@@ -72,15 +72,19 @@ int	init_config(t_cfg *cfg, int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_cfg	cfg;
+	t_cfg	*cfg;
 
+	cfg = malloc(sizeof(t_cfg));
+	if (!cfg)
+		return (error_msg("Malloc error"));
 	if (argc != 5 && argc != 6)
 		return (error_msg("Wrong number of arguments"));
-	if (init_config(&cfg, argc, argv))
+	if (init_config(cfg, argc, argv))
 		return (error_msg("Config initialisation"));
-	if (start_life_cycle(&cfg))
+	if (start_life_cycle(cfg))
 		return (error_msg("Thread create"));
-	free(cfg.philo);
-	free(cfg.fork_trd);
+	free(cfg->philo);
+	free(cfg->fork_trd);
+	free(cfg);
 	return (0);
 }
